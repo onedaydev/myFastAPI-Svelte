@@ -3,26 +3,33 @@
     import Error from "../components/Error.svelte";
     import { link, push } from "svelte-spa-router";
     import { is_login, username } from "../lib/store";
-    import { marked } from 'marked'
+    import { marked } from "marked";
     import moment from "moment/min/moment-with-locales";
     moment.locale("ko");
 
+    import {paginate, LightPaginationNav} from 'svelte-paginate'
+    
     export let params = {};
 
     let question_id = params.question_id;
-    let question = { answers: [], voter:[], content: ''};
+    let question = { answers: [], voter: [], content: "" };
     let content = "";
     let error = { detail: [] };
 
-    
+    let currentPage = 1
+    let pageSize = 3
+    let items = []
 
     function get_question() {
         fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
             question = json;
+            items = question.answers
         });
     }
 
     get_question();
+    
+    $: paginatedItems = paginate({items, pageSize, currentPage})
 
     function post_answer(event) {
         event.preventDefault();
@@ -85,37 +92,44 @@
     }
 
     function vote_question(_question_id) {
-        if(window.confirm('정말로 추천하시겠습니까?')) {
-            let url = "/api/question/vote"
+        if (window.confirm("정말로 추천하시겠습니까?")) {
+            let url = "/api/question/vote";
             let params = {
-                question_id: _question_id
-            }
-            fastapi('post', url, params, 
+                question_id: _question_id,
+            };
+            fastapi(
+                "post",
+                url,
+                params,
                 (json) => {
-                    get_question()
+                    get_question();
                 },
                 (err_json) => {
-                    error = err_json
+                    error = err_json;
                 }
-            )
+            );
         }
     }
     function vote_answer(answer_id) {
-        if(window.confirm('정말로 추천하시겠습니까?')) {
-            let url = "/api/answer/vote"
+        if (window.confirm("정말로 추천하시겠습니까?")) {
+            let url = "/api/answer/vote";
             let params = {
-                answer_id: answer_id
-            }
-            fastapi('post', url, params, 
+                answer_id: answer_id,
+            };
+            fastapi(
+                "post",
+                url,
+                params,
                 (json) => {
-                    get_question()
+                    get_question();
                 },
                 (err_json) => {
-                    error = err_json
+                    error = err_json;
                 }
-            )
+            );
         }
-    }
+    } 
+    
 </script>
 
 <div class="container my-3">
@@ -149,10 +163,14 @@
                 </div>
             </div>
             <div class="my-3">
-                <button class="btn btn-sm btn-outline-secondary"
-                    on:click="{vote_question(question.id)}"> 
+                <button
+                    class="btn btn-sm btn-outline-secondary"
+                    on:click={vote_question(question.id)}
+                >
                     추천
-                    <span class="badge rounded-pill bg-success">{ question.voter.length }</span>
+                    <span class="badge rounded-pill bg-success"
+                        >{question.voter.length}
+                    </span>
                 </button>
                 {#if question.user && $username === question.user.username}
                     <a
@@ -163,8 +181,9 @@
                     <button
                         class="btn btn-sm btn-outline-secondary"
                         on:click={() => delete_question(question.id)}
-                        >삭제</button
-                    >
+                        >
+                        삭제
+                    </button>
                 {/if}
             </div>
         </div>
@@ -174,14 +193,16 @@
         class="btn btn-secondary"
         on:click={() => {
             push("/");
-        }}>목록으로</button
-    >
+        }}>목록으로
+    </button>
 
     <!-- 답변 목록 -->
     <h5 class="border-bottom my-3 py-2">
         {question.answers.length}개의 답변이 있습니다.
     </h5>
-    {#each question.answers as answer}
+
+    <ul class="items">
+        {#each paginatedItems as answer}
         <div class="card my-3">
             <div class="card-body">
                 <div class="card-text">
@@ -212,27 +233,41 @@
                     </div>
                 </div>
                 <div class="my-3">
-                    <button class="btn btn-sm btn-outline-secondary"
-                    on:click="{vote_answer(answer.id)}"> 
-                    추천
-                    <span class="badge rounded-pill bg-success">{ answer.voter.length }</span>
-                </button>
+                    <button
+                        class="btn btn-sm btn-outline-secondary"
+                        on:click={vote_answer(answer.id)}
+                    >
+                        추천
+                        <span class="badge rounded-pill bg-success">
+                            {answer.voter.length}
+                        </span>
+                    </button>
                     {#if answer.user && $username === answer.user.username}
                         <a
                             use:link
                             href="/answer-modify/{answer.id}"
-                            class="btn btn-sm btn-outline-secondary">수정</a
-                        >
+                            class="btn btn-sm btn-outline-secondary">수정
+                        </a>
                         <button
                             class="btn btn-sm btn-outline-secondary"
                             on:click={() => delete_answer(answer.id)}
-                            >삭제</button
                         >
+                            삭제
+                        </button>
                     {/if}
                 </div>
             </div>
         </div>
-    {/each}
+    {/each}  
+      <LightPaginationNav
+        totalItems="{items.length}"
+        pageSize="{pageSize}"
+        currentPage="{currentPage}"
+        limit="{1}"
+        showStepOptions="{true}"
+        on:setPage="{(e) => currentPage = e.detail.page}"
+      />
+
     <!-- 답변 등록 -->
     <Error {error} />
     <form method="post" class="my-3">
@@ -251,3 +286,4 @@
         />
     </form>
 </div>
+

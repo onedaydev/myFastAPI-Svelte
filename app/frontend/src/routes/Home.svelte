@@ -25,7 +25,7 @@
         })
     }
 
-    $:$page, $keyword, get_question_list()
+    $: $page, $keyword, get_question_list()
 
     $: get_question_list($page);
 </script>
