@@ -50,6 +50,7 @@
             <tr class="text-center table-dark">
                 <th>번호</th>
                 <th style="width:50%">제목</th>
+                <th>조회수</th>
                 <th>글쓴이</th>
                 <th>작성일시</th>
             </tr>
@@ -68,6 +69,7 @@
                             </span>
                         {/if}
                     </td>
+                    <td>{ question.views }</td>
                     <td>{ question.user ? question.user.username : "" }</td>
                     <td>
                         {moment(question.create_date).format(

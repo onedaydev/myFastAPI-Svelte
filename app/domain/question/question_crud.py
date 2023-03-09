@@ -28,6 +28,10 @@ def get_question_list(db: Session, skip: int=0, limit: int = 10, keyword: str = 
 
 def get_question(db: Session, question_id: int):
     question = db.query(Question).get(question_id)
+    question.views += 1
+    db.add(question)
+    db.commit()
+
     return question
 
 def create_question(db: Session, question_create: QuestionCreate, user:User):

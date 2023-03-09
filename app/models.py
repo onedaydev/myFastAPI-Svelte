@@ -28,6 +28,7 @@ class Question(Base):
     user = relationship("User", backref="question_users")
     modify_date = Column(DateTime, nullable=True)
     voter = relationship('User', secondary=question_voter, backref='question_voters')
+    views = Column(Integer, default=0, nullable=False)
 
 class Answer(Base):
     __tablename__ = "answer"

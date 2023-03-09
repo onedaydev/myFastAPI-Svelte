@@ -14,6 +14,7 @@ class Question(BaseModel):
     user: User | None
     modify_date: datetime.datetime | None = None
     voter: list[User] = []
+    views: int = 0
 
     class Config:
         orm_mode = True
