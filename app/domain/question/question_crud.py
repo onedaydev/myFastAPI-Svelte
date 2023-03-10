@@ -26,6 +26,12 @@ def get_question_list(db: Session, skip: int=0, limit: int = 10, keyword: str = 
 
     return total, question_list
 
+# def get_so_question_list(db: Session, username: str):
+#     question_list = db.query(Question).filter(User.username==username)
+#     print(question_list)
+#     return question_list
+
+
 def get_question(db: Session, question_id: int):
     question = db.query(Question).get(question_id)
     question.views += 1

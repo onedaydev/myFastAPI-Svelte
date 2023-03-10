@@ -31,6 +31,13 @@
                 <li class="nav-item">
                     {#if $is_login}
                         <a
+                             use:link
+                             href="/user-info"
+                             class="nav-link"
+                        >
+                            프로필
+                        </a>
+                        <a
                             use:link
                             href="/user-login"
                             class="nav-link"
@@ -38,8 +45,9 @@
                                 $access_token = "";
                                 $username = "";
                                 $is_login = false;
-                            }}>로그아웃 ({$username})</a
-                        >
+                            }}>
+                            로그아웃 ({$username})
+                        </a>
                     {:else}
                         <li class="nav-item">
                             <a use:link class="nav-link" href="/user-create"

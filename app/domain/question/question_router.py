@@ -27,6 +27,14 @@ def question_detail(question_id: int, db: Session = Depends(get_db)):
     question = question_crud.get_question(db, question_id=question_id)
     return question
 
+# @router.get("/soql/{username}", response_model=question_schema.QuestionList)
+# def someonequestionlist(username: str, db: Session = Depends(get_db)):
+#     print('test')
+#     so_question_list = question_crud.get_so_question_list(db, username=username)
+#     return {
+#         'question_list': so_question_list
+#     }
+
 
 @router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
 def question_create(_question_create: question_schema.QuestionCreate,
@@ -72,3 +80,4 @@ def question_vote(_question_vote: question_schema.QuestionVote,
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="데이터를 찾을수 없습니다.")
     question_crud.vote_question(db, db_question=db_question, db_user=current_user)
+
