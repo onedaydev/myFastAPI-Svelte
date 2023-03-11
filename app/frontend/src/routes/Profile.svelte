@@ -2,19 +2,14 @@
     import fastapi from "../lib/api";
     import { username } from "../lib/store";
     import { link } from "svelte-spa-router";
-    import QuestionCreate from "./QuestionCreate.svelte";
-    import QuestionModify from "./QuestionModify.svelte";
-
-    let my_questions;
-
+    
+    let my_questions=[];
     function get_my_question() {
-        fastapi("get", "/api/question/soql/" + username,  {}, (json) => {
-            my_questions = json;
-            my_questions = [{id:606,subject:"test"}]
+        fastapi("get", "/api/question/soql/" + $username,  {}, (json) => {
+            my_questions = json.question_list;
         });
     }
-    // get_my_question();
-
+    $: get_my_question();
 </script>
 
 <div class="container">
@@ -24,24 +19,19 @@
     <table class="table">
         <thead>
             <tr class="text-center table-dark">
-                <th> My Question </th>
-                
+                <th> My Question & Answer</th>
             </tr>
         </thead>
-        <!-- <tbody>
+        <tbody>
             {#each my_questions as my_question}
                 <tr class="text-center">
                     <td class="text-center text-start">
-                        <a use:link href="/soql/{username}">
+                        <a use:link href="/detail/{my_question.id}">
                             {my_question.subject}
                         </a>
                     </td>
                 </tr>
-            {/each} -->
-        <!-- </tbody> -->
+            {/each} 
+        </tbody>
     </table>
 </div>
-
-
-<!-- {#each my_question as q} -->
-<!-- {/each} -->

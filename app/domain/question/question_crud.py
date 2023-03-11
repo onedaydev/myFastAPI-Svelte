@@ -26,11 +26,22 @@ def get_question_list(db: Session, skip: int=0, limit: int = 10, keyword: str = 
 
     return total, question_list
 
-# def get_so_question_list(db: Session, username: str):
-#     question_list = db.query(Question).filter(User.username==username)
-#     print(question_list)
-#     return question_list
+def get_so_question_list(db: Session, username: str):
+    question_list = db.query(Question)
+    
+    sub_query = db.query(Answer.question_id, Answer.content, User.username) \
+        .outerjoin(User, Answer.user_id == User.id).subquery()
+    
+    question_list = question_list \
+        .outerjoin(User) \
+        .outerjoin(sub_query, sub_query.c.question_id == Question.id) \
+        .filter(User.username==username or           # 질문작성자
+                sub_query.c.username==username      # 답변작성자
+                )
+    
+    question_list = question_list.order_by(Question.create_date.desc()).distinct().all()
 
+    return question_list
 
 def get_question(db: Session, question_id: int):
     question = db.query(Question).get(question_id)

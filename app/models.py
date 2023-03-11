@@ -43,6 +43,8 @@ class Answer(Base):
     modify_date = Column(DateTime, nullable=True)
     voter = relationship('User', secondary=answer_voter, backref='answer_voters')
 
+
+
 class User(Base):
     __tablename__ = "user"
 
@@ -51,3 +53,10 @@ class User(Base):
     password = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
 
+    def __init__(self, username, password, email):
+        self.username = username
+        self.password = password
+        self.email = email
+
+    def __repr__(self):
+        return f"<User({self.username}, {self.password}, {self.email})"
