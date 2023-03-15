@@ -2,10 +2,10 @@
     import fastapi from "../lib/api";
     import { username } from "../lib/store";
     import { link } from "svelte-spa-router";
-    
-    let my_questions=[];
+
+    let my_questions = [];
     function get_my_question() {
-        fastapi("get", "/api/question/soql/" + $username,  {}, (json) => {
+        fastapi("get", "/api/question/soql/" + $username, {}, (json) => {
             my_questions = json.question_list;
         });
     }
@@ -14,7 +14,7 @@
 
 <div class="container">
     <div class="mb-3">
-        <h1 class='text-center'>{$username}'s Profile</h1>
+        <h1 class="text-center">{$username}'s Profile</h1>
     </div>
     <table class="table">
         <thead>
@@ -31,7 +31,14 @@
                         </a>
                     </td>
                 </tr>
-            {/each} 
+            {/each}
         </tbody>
     </table>
+
+    <a
+        use:link
+        href="/pwdmodify"
+        class="btn btn-sm btn-outline-secondary">
+        비밀번호 변경
+    </a>
 </div>

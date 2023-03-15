@@ -12,6 +12,8 @@ from database import get_db
 from domain.user import user_crud, user_schema
 from domain.user.user_crud import pwd_context
 
+from models import User
+
 ###########################
 
 import os, json
@@ -90,3 +92,10 @@ def get_current_user(token: str = Depends(oauth2_scheme),
         if user is None:
             raise credentials_exception
         return user
+    
+@router.put("/changepwd", status_code=status.HTTP_204_NO_CONTENT)
+def changepwd(_user_update: user_schema.UserPWDUpdate,
+                    db: Session = Depends(get_db),
+                    current_user: User = Depends(get_current_user)):
+
+    user_crud.update_user(db=db, user=current_user, update_user=_user_update)

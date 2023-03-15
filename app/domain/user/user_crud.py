@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-from domain.user.user_schema import UserCreate
+from domain.user.user_schema import UserCreate, UserPWDUpdate
 from models import User
 from passlib.context import CryptContext
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated='auto')
 
@@ -20,3 +21,8 @@ def get_existing_user(db: Session, user_create: UserCreate):
 
 def get_user(db: Session, username: str):
     return db.query(User).filter(User.username == username).first()
+
+def update_user(db: Session, user: User, update_user=UserPWDUpdate):
+    user.password = pwd_context.hash(update_user.password)
+    db.add(user)
+    db.commit()

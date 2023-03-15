@@ -9,6 +9,7 @@
   import QuestionModify from "./routes/QuestionModify.svelte"
   import AnswerModify from "./routes/AnswerModify.svelte"
   import Profile from "./routes/Profile.svelte"
+  import PwdModify from "./routes/PwdModify.svelte"
 
   const routes = {
     '/': Home,
@@ -19,6 +20,7 @@
     '/question-modify/:question_id': QuestionModify,
     '/answer-modify/:answer_id': AnswerModify,
     '/user-info': Profile,
+    '/pwdmodify': PwdModify
   }
 </script>
 
