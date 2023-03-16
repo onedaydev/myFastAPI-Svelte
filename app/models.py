@@ -17,6 +17,7 @@ answer_voter = Table(
     Column('answer_id', Integer, ForeignKey('answer.id'), primary_key=True)
 )
 
+
 class Question(Base):
     __tablename__ = "question"
 
@@ -30,6 +31,7 @@ class Question(Base):
     voter = relationship('User', secondary=question_voter, backref='question_voters')
     views = Column(Integer, default=0, nullable=False)
 
+
 class Answer(Base):
     __tablename__ = "answer"
 
@@ -42,7 +44,6 @@ class Answer(Base):
     user = relationship("User", backref="answer_users")
     modify_date = Column(DateTime, nullable=True)
     voter = relationship('User', secondary=answer_voter, backref='answer_voters')
-
 
 
 class User(Base):

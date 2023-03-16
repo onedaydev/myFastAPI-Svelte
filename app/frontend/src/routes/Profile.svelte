@@ -1,7 +1,7 @@
 <script>
     import fastapi from "../lib/api";
-    import { username } from "../lib/store";
-    import { link } from "svelte-spa-router";
+    import { access_token, is_login, username } from "../lib/store";
+    import { link, push } from "svelte-spa-router";
 
     let my_questions = [];
     function get_my_question() {
@@ -10,6 +10,17 @@
         });
     }
     $: get_my_question();
+
+    function delete_user() {
+        fastapi("delete", "/api/user/delete", {}, (json) => {
+            $access_token = "";
+            $username = "";
+            $is_login = false;
+            push("/");
+        });
+    }
+
+
 </script>
 
 <div class="container">
@@ -41,4 +52,10 @@
         class="btn btn-sm btn-outline-secondary">
         비밀번호 변경
     </a>
+
+    <button
+        class="btn btn-sm btn-outline-secondary"
+        on:click="{delete_user}">
+        회원 탈퇴
+    </button>
 </div>

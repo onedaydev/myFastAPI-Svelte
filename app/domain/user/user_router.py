@@ -99,3 +99,8 @@ def changepwd(_user_update: user_schema.UserPWDUpdate,
                     current_user: User = Depends(get_current_user)):
 
     user_crud.update_user(db=db, user=current_user, update_user=_user_update)
+
+@router.delete('/delete', status_code=status.HTTP_204_NO_CONTENT)
+def delete_user(db: Session = Depends(get_db),
+                current_user: User = Depends(get_current_user)):
+    user_crud.delete_user(db=db, db_user=current_user)

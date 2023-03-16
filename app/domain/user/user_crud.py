@@ -26,3 +26,8 @@ def update_user(db: Session, user: User, update_user=UserPWDUpdate):
     user.password = pwd_context.hash(update_user.password)
     db.add(user)
     db.commit()
+
+
+def delete_user(db: Session, db_user: User):
+    db.delete(db_user)
+    db.commit()
