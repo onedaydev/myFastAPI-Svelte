@@ -5,7 +5,6 @@
 
 <br/>
 <br/>
-<br/>
 
 # API 명세
 | API 명| URL| 요청방법| 설명 |
@@ -32,14 +31,13 @@
 
 <br/>
 <br/>
-<br/>
 
 # ToDo(Recommended)
 * ~~댓글 페이징~~(3.8)
 * ~~조회 수~~(3.9) - 조회 수 컬럼 생성을 위해 alembic으로 revision 만들고 반영하는 과정에서 default=0, nullable=False 부분은 에러가 생성이 된다. 해결 방법은 [다음]
 * ~~프로필~~(3.10)
 * ~~비밀번호 변경~~(3.14)
-* 회원 탈퇴
+* ~~회원 탈퇴~~(3.16)
 * 질문 또는 답변에 댓글을 달 수 있는 기능
 * 카테고리
 * 비밀번호 찾기
@@ -49,23 +47,17 @@
 
 <br/>
 <br/>
-<br/>
 
 # How to Run
-frontend
-```cmd
-cd app/frontend
-npm run dev
-```
-backend
-- prerequisite : secrets copy.json에 ```openssl rand -hex 32``` 또는 ```import secrests;secrets.token_hex(32)```명령어로 생성한 Secret key 값을 넣은 후 secrets.json으로 파일명을 바꾼다.
+사용하기 전에 secrets copy.json 파일의 파일명을 secrets.json으로 변경한다
+
+Optional : secrets copy.json에 ```openssl rand -hex 32``` 또는 ```import secrests;secrets.token_hex(32)```명령어로 생성한 Secret key 값을 대입
 ```
 pip install -r requirements.txt
 cd app
 uvicorn main:app --reload
 ```
 
-<br/>
 <br/>
 <br/>
 
