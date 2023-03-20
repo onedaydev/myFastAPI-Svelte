@@ -1,4 +1,4 @@
-# myFastAPI-Web
+# myFastAPI-Svelte
 
 이 프로젝트는 [점프 투 FastAPI](https://wikidocs.net/book/8531)를 바탕으로 만들었으며,
 [저자 추천 과제](https://wikidocs.net/177232)와 직접 과제를 기획해 진행하기 위해 만들어졌습니다.
@@ -43,7 +43,7 @@
 * 비밀번호 찾기
 * 최근 답변과 최근 댓글
 (https://medium.com/the-andela-way/alembic-how-to-add-a-non-nullable-field-to-a-populated-table-998554003134)과 같다. 필자는 db browser에서 직접 column을 생성했다.
-* 마크다운 에디터([simplemde](simplemde.com) 추천)
+* 마크다운 에디터([simplemde](www.simplemde.com) 추천)
 
 <br/>
 <br/>
