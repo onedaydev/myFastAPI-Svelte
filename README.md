@@ -34,16 +34,15 @@
 
 # ToDo(Recommended)
 * ~~댓글 페이징~~(3.8)
-* ~~조회 수~~(3.9) - 조회 수 컬럼 생성을 위해 alembic으로 revision 만들고 반영하는 과정에서 default=0, nullable=False 부분은 에러가 생성이 된다. 해결 방법은 [다음]
+* ~~조회 수~~(3.9) - 조회 수 컬럼 생성을 위해 alembic으로 revision 만들고 반영하는 과정에서 default=0, nullable=False 부분은 에러가 생성이 된다. 해결 방법은 [다음](https://medium.com/the-andela-way/alembic-how-to-add-a-non-nullable-field-to-a-populated-table-998554003134)과 같다. 필자는 db browser에서 직접 column을 생성했다.
 * ~~프로필~~(3.10)
 * ~~비밀번호 변경~~(3.14)
 * ~~회원 탈퇴~~(3.16)
+* 마크다운 에디터([simplemde](https://simplemde.com/))추가
 * 질문 또는 답변에 댓글을 달 수 있는 기능
 * 카테고리
 * 비밀번호 찾기
 * 최근 답변과 최근 댓글
-(https://medium.com/the-andela-way/alembic-how-to-add-a-non-nullable-field-to-a-populated-table-998554003134)과 같다. 필자는 db browser에서 직접 column을 생성했다.
-* 마크다운 에디터([simplemde](www.simplemde.com) 추천)
 
 <br/>
 <br/>
