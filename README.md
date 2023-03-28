@@ -41,10 +41,24 @@
 <br/>
 <br/>
 
+# Requirements
+- python 3.11.2
+- node.js 18.15.0
+
 # How to Run
-사용하기 전에 secrets copy.json 파일의 파일명을 secrets.json으로 변경한다
+
+## DB setting
+```
+
+```
+
+## Web Build
+```
+
+```
 
 Optional : secrets copy.json에 ```openssl rand -hex 32``` 또는 ```import secrests;secrets.token_hex(32)```명령어로 생성한 Secret key 값을 대입
+
 ```
 pip install -r requirements.txt
 cd app
