@@ -9,7 +9,10 @@ media
 
 .env
 .venv
-app.db
 
 .svelte-kit/
 packages
+
+app.db
+migrations
+alembic.ini
