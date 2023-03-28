@@ -11,7 +11,5 @@ media
 .venv
 app.db
 
-.venv
-
 .svelte-kit/
 packages
