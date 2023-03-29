@@ -33,7 +33,7 @@
 
 # Done
 * ~~댓글 페이징~~(3.8)
-* ~~조회 수~~(3.9) - 조회 수 컬럼 생성을 위해 alembic으로 revision 만들고 반영하는 과정에서 default=0, nullable=False 부분은 에러가 생성이 된다. 해결 방법은 [다음](https://medium.com/the-andela-way/alembic-how-to-add-a-non-nullable-field-to-a-populated-table-998554003134)과 같다. 필자는 db browser에서 직접 column을 생성했다.
+* ~~조회 수~~(3.9) - 조회 수 컬럼 생성을 위해 alembic으로 revision 만들고 반영하는 과정에서 default=0, nullable=False 부분은 에러가 생성이 된다. 해결 방법은 [다음](https://medium.com/the-andela-way/alembic-how-to-add-a-non-nullable-field-to-a-populated-table-998554003134)를 참고하자. 다른 방안으로는 db browser for SQLite 설치 후 직접 수정한다.
 * ~~프로필~~(3.10)
 * ~~비밀번호 변경~~(3.14)
 * ~~회원 탈퇴~~(3.16)
@@ -47,21 +47,42 @@
 
 # How to Run
 
-## DB setting
+## init 
+```
+pip install -r requirements.txt
 ```
 
+## DB setting
 ```
+cd app
+alembic init migrations
+```
+alembic.ini 파일과 migrations 폴더 생성 후에 alembic.ini 파일에서 다음과 같이 수정
+```
+sqlalchemy.url = sqlite:///./app.db
+```
+그리고 migrations폴더 내 env.py 파일을 다음과 같이 수정
+```
+import models
+
+target_metadata = models.Base.metadata
+```
+### 리비전 파일 생성
+```alembic revision --autogenerate```
+### 리비전 파일 실행
+```alembic upgrade head```
 
 ## Web Build
 ```
-
+cd frontend
+npm run build
 ```
+
+## 실행
 
 Optional : secrets copy.json에 ```openssl rand -hex 32``` 또는 ```import secrests;secrets.token_hex(32)```명령어로 생성한 Secret key 값을 대입
 
 ```
-pip install -r requirements.txt
-cd app
 uvicorn main:app --reload
 ```
 
