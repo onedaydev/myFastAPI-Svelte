@@ -33,7 +33,7 @@
 
 # Done
 * ~~댓글 페이징~~(3.8)
-* ~~조회 수~~(3.9) - 조회 수 컬럼 생성을 위해 alembic으로 revision 만들고 반영하는 과정에서 default=0, nullable=False 부분은 에러가 생성이 된다. 해결 방법은 [다음](https://medium.com/the-andela-way/alembic-how-to-add-a-non-nullable-field-to-a-populated-table-998554003134)를 참고하자. 다른 방안으로는 db browser for SQLite 설치 후 직접 수정한다.
+* ~~조회 수~~(3.9)
 * ~~프로필~~(3.10)
 * ~~비밀번호 변경~~(3.14)
 * ~~회원 탈퇴~~(3.16)
@@ -90,3 +90,7 @@ uvicorn main:app --reload
 <br/>
 
 ## QnA : https://pybo.kr
+
+<!-- 검색 엔진 추가하기  -->
+<!-- https://www.google.co.kr/search?q=%s -->
+<!-- https://search.naver.com/search.naver?query=%s -->

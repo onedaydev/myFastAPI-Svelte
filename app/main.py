@@ -1,3 +1,4 @@
+'''C01114 module docstring'''
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import FileResponse
@@ -15,7 +16,7 @@ origins = [
     "http://localhost:8000",
     ]
 
-# middleware 
+# middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -33,4 +34,7 @@ app.mount("/assets", StaticFiles(directory="frontend/dist/assets"))
 
 @app.get("/")
 def index():
+    '''
+        return FileResponse()
+    '''
     return FileResponse("frontend/dist/index.html")
