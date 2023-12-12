@@ -16,3 +16,5 @@ packages
 app.db
 migrations
 alembic.ini
+
+.DS_Store
