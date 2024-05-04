@@ -1,6 +1,6 @@
 # myFastAPI-Svelte
 
-이 프로젝트는 [점프 투 FastAPI](https://wikidocs.net/book/8531)를 바탕으로 만들었으며, 추가 기능을 구현하기 위해 만들어졌습니다.
+FastAPI 기반 웹 서버
 
 <br/>
 <br/>
